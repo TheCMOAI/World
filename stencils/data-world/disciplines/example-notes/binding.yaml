@@ -1,0 +1,25 @@
+model_tier: worker
+
+needs:
+  - reliable-json
+
+tools:
+  - database.*
+
+write_surface:
+  - entity_notes
+  - decisions
+  - entity_activity_log
+
+activation:
+  mode: manual              # this example runs only when asked.
+                            # Flip to `condition` + a query to make it wake itself.
+  # Example: propose this discipline for any active entity that has no notes yet.
+  # query: |
+  #   SELECT e.id AS entity_id
+  #   FROM entities e
+  #   LEFT JOIN entity_notes n ON n.entity_id = e.id
+  #   WHERE e.status = 'active' AND n.id IS NULL
+  # entry_stage: 01_read
+  # cooldown: 12h
+  # risk: low

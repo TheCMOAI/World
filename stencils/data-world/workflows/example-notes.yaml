@@ -1,0 +1,22 @@
+name: example-notes
+description: Create one note through read, plan, execute.
+entity_scope: entity
+
+steps:
+  - discipline: example-notes
+    stage: "01_read"
+    label: "Read current notes"
+    args: {}
+
+  - discipline: example-notes
+    stage: "02_plan"
+    label: "Plan note creation"
+    args:
+      intent: create_note
+      content: "$inputs.content"
+
+  - discipline: example-notes
+    stage: "03_execute"
+    label: "Write note"
+    args: {}
+

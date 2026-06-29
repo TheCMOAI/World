@@ -1,0 +1,12 @@
+# Harness binding for this discipline.
+# The runtime reads this; the LLM never sees it directly.
+
+model_tier: worker          # worker | orchestrator | router
+
+tools:
+  - bash                    # dev-world disciplines use bash to run lib/ scripts
+  - read                    # read files in the codebase
+  - edit                    # edit files
+
+# Dev-world disciplines do not use database tools.
+# State is the codebase (files + git). Tools are bash + file access.

@@ -1,0 +1,39 @@
+# Harness binding for this discipline.
+# The runtime reads this; the LLM never sees it.
+# Copy to your discipline folder and fill in.
+
+model_tier: worker          # router | orchestrator | worker
+                            # worker  = focused single-stage tasks
+                            # orchestrator = multi-stage coordination
+                            # router  = lightweight routing only
+
+needs:
+  - reliable-json           # this discipline expects structured output from stages
+
+tools:                      # tool namespaces this discipline may call
+  - database.*              # blackboard reads/writes
+  # - external.*            # uncomment if this discipline calls external APIs
+
+write_surface:              # tables this discipline is allowed to mutate
+  - decisions               # log what was decided
+  - entity_activity_log     # log what was done to the entity
+  # - <your_table>          # add domain-specific tables here
+
+activation:                 # when this discipline wakes itself (the scheduler)
+  mode: manual              # manual | condition
+                            #   manual    = runs only when the operator/LLM calls it
+                            #   condition = lib/watch.py proposes it when `query` matches
+  # When mode: condition, the watcher runs this query each pass. It must be a
+  # single read-only SELECT returning an `entity_id` column. One row = one
+  # candidate entity. This SQL is builder-authored (like a migration) and run by
+  # the watcher — never by the operating LLM. The tool fence still binds the LLM.
+  # See brain/activation-model.md for the full model.
+  #
+  # query: |
+  #   SELECT id AS entity_id
+  #   FROM entities
+  #   WHERE status = 'active'
+  #     AND (metadata->>'last_contact')::timestamptz < now() - interval '7 days'
+  # entry_stage: 01_read    # which stage the dispatcher opens (default 01_read)
+  # cooldown: 24h           # don't re-propose the same entity within this window
+  # risk: low               # low | medium | high — high opens a gate before any work

@@ -1,0 +1,65 @@
+name: service-business-ops
+description: A runnable generic business operations loop.
+entity_scope: entity
+
+steps:
+  - discipline: ops-intake
+    stage: "01_read"
+    label: "Read incoming work"
+    args: {}
+
+  - discipline: ops-intake
+    stage: "02_plan"
+    label: "Plan intake summary"
+    args:
+      objective: "$inputs.objective"
+
+  - discipline: ops-intake
+    stage: "03_execute"
+    label: "Write intake artifact"
+    args: {}
+
+  - discipline: ops-quote
+    stage: "01_read"
+    label: "Read intake for quote"
+    args: {}
+
+  - discipline: ops-quote
+    stage: "02_plan"
+    label: "Plan quote follow-up"
+    args: {}
+
+  - discipline: ops-quote
+    stage: "03_execute"
+    label: "Write quote artifact"
+    args: {}
+
+  - discipline: ops-schedule
+    stage: "01_read"
+    label: "Read quote plan for scheduling"
+    args: {}
+
+  - discipline: ops-schedule
+    stage: "02_plan"
+    label: "Plan scheduling"
+    args: {}
+
+  - discipline: ops-schedule
+    stage: "03_execute"
+    label: "Write schedule artifact"
+    args: {}
+
+  - discipline: ops-followup
+    stage: "01_read"
+    label: "Read schedule plan for follow-up"
+    args: {}
+
+  - discipline: ops-followup
+    stage: "02_plan"
+    label: "Plan customer follow-up"
+    args: {}
+
+  - discipline: ops-followup
+    stage: "03_execute"
+    label: "Write follow-up artifact"
+    args: {}

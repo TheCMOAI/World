@@ -1,0 +1,37 @@
+# Workflow template — a multi-discipline pipeline.
+#
+# A workflow chains disciplines in sequence. Each step runs one or more stages
+# and passes the entity_id and workspace_id through. Workflows do not replace
+# discipline logic — they sequence it.
+#
+# Copy and rename this file for your workflow. e.g. "onboard-entity.yaml"
+
+name: "<workflow-name>"
+description: "<one sentence: what this workflow accomplishes>"
+
+# The entity this workflow runs for. Resolved at runtime.
+entity_scope: entity   # entity | all | filter (see below)
+
+steps:
+  - discipline: "<discipline-folder-name>"
+    stage: "01_read"
+    label: "Gather current state"
+    # args passed to this stage (in addition to entity_id and workspace_id)
+    args: {}
+
+  - discipline: "<discipline-folder-name>"
+    stage: "02_plan"
+    label: "Build a plan"
+    args: {}
+
+  - discipline: "<discipline-folder-name>"
+    stage: "03_execute"
+    label: "Execute the plan"
+    gate_before: true   # surface a gate before this step runs
+    args: {}
+
+  # Add more steps. Steps run in order. A failed step halts the workflow
+  # unless `continue_on_failure: true` is set.
+  # - discipline: "<another-discipline>"
+  #   stage: "01_read"
+  #   continue_on_failure: true

@@ -1,0 +1,16 @@
+model_tier: worker
+
+needs:
+  - reliable-json
+
+tools:
+  - database.*
+
+write_surface:
+  - business_artifacts
+  - decisions
+  - entity_activity_log
+
+activation:
+  mode: manual
+

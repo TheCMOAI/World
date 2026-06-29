@@ -1,0 +1,15 @@
+# World configuration
+# Copy to config.local.yaml and fill in your values.
+# Never commit config.local.yaml — it contains credentials.
+
+world:
+  name: "My World"          # give your World a name
+  root: "."                 # path to the World folder (relative or absolute)
+
+database:
+  url: "${DATABASE_URL}"    # set DATABASE_URL in your environment
+                            # e.g. postgresql://user:pass@localhost:5432/world
+
+agent:
+  orientation: "agent.md"  # the LLM reads this to enter the World
+  # model: "claude-opus-4"  # override the default model if needed

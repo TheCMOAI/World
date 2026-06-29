@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+*.egg-info/
+.env
+.env.local
+config.local.yaml
+workspaces/*/state.json
+workspaces/*/plan.json
+workspaces/*/result.json
+workspaces/*/decisions.json
+workspaces/*/gates.json
